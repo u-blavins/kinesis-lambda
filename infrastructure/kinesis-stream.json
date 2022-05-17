@@ -5,6 +5,8 @@
     "KinesisIAMRole": {
       "Type": "AWS::IAM::Role",
       "Properties": {
+        "RoleName": "lambda-consume-kinesis-stream-role",
+        "Path": "/",
         "AssumeRolePolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
@@ -19,9 +21,45 @@
               }
             }
           ]
-        },
-        "Path": "/",
-        "RoleName": "lambda-consume-kinesis-stream-role"
+        }
+      }
+    },
+    "KinesisIAMPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "KinesisReadPermissions",
+              "Action": [
+                "kinesis:DescribeStream",
+                "kinesis:DescribeStreamSummary",
+                "kinesis:GetRecords",
+                "kinesis:GetShardIterator",
+                "kinesis:ListShards",
+                "kinesis:ListStreams",
+                "kinesis:SubscribeToShard"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*"
+              ]
+            },
+            {
+              "Sid": "CloudWatchLogs",
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                "*"
+              ]
+            }
+          ]
+        }
       }
     }
   }
