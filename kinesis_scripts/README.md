@@ -14,3 +14,7 @@ shards with Lambda.
 $ pipenv install
 $ pipenv run python3 SCRIPT.py
 ```
+
+## Resources
+
+https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis-example.html
